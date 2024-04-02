@@ -7,6 +7,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
 
-public interface Detector {
-	Optional<DetectionResult> detect(Level level, BlockPos pos, BlockState state, DetectorShroomBlockEntity shroom);
+public interface Detector<T extends DetectorShroomBlockEntity> {
+	Optional<DetectionResult> detect(Level level, BlockPos pos, BlockState state, T shroom);
 }

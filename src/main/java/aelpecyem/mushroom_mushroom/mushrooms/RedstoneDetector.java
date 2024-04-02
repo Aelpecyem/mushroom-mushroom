@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
 
-public class RedstoneDetector implements Detector {
+public class RedstoneDetector implements Detector<DetectorShroomBlockEntity> {
 	@Override
 	public Optional<DetectionResult> detect(Level level, BlockPos pos, BlockState state,
 											DetectorShroomBlockEntity shroom) {

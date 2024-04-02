@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
 
-public class EntityDetector implements Detector {
+public class EntityDetector implements Detector<DetectorShroomBlockEntity> {
 	private static final int RANGE = 8;
 
 	@Override
