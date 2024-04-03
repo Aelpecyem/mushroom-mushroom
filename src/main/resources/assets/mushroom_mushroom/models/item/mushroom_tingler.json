@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "mushroom_mushroom:item/mushroom_tingler"
+  }
+}

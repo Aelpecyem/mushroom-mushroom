@@ -18,7 +18,8 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "aelpecyem.mushroom_mushroom.MushroomMushroom"
+			"init": "aelpecyem.mushroom_mushroom.MushroomMushroom",
+			"client_init": "aelpecyem.mushroom_mushroom.MushroomMushroomClient"
 		},
 		"depends": [
 			{

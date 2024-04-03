@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -18,16 +19,35 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class MushroomUnitBlock extends BaseEntityBlock implements MushroomUnit {
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
+	protected static final VoxelShape[] SHAPE = {
+		Block.box(5.0, 6.0, 5.0, 11.0, 16.0, 11.0), // UP
+		Block.box(5.0, 0.0, 5.0, 11.0, 10.0, 11.0), // DOWN
+		Block.box(5.0, 5.0, 6.0, 11.0, 11.0, 16.0), // SOUTH
+		Block.box(5.0, 5.0, 0.0, 11.0, 11.0, 10.0), // NORTH
+		Block.box(6.0, 5.0, 5.0, 16.0, 11.0, 11.0), // EAST
+		Block.box(0.0, 5.0, 5.0, 10.0, 11.0, 11.0) // WEST
+	};
 
 	public MushroomUnitBlock() {
-		super(Properties.copy(Blocks.RED_MUSHROOM).lightLevel(Blocks.litBlockEmission(5)));
+		super(Properties.copy(Blocks.RED_MUSHROOM)
+			.lightLevel(Blocks.litBlockEmission(5)));
 		registerDefaultState(defaultBlockState().setValue(ENABLED, true).setValue(FACING, Direction.UP));
 	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+		Vec3 vec3 = state.getOffset(world, pos);
+		return SHAPE[state.getValue(FACING).ordinal()].move(vec3.x, vec3.y, vec3.z);
+	}
+
 
 	@Nullable
 	@Override

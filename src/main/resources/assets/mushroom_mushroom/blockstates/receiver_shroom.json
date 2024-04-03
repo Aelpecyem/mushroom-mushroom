@@ -1,56 +1,56 @@
 {
   "variants": {
     "facing=up,lit=false": {
-      "model": "mushroom_mushroom:block/emitter_shroom"
+      "model": "mushroom_mushroom:block/receiver_shroom"
     },
     "facing=down,lit=false": {
-      "model": "mushroom_mushroom:block/emitter_shroom",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 180
     },
     "facing=north,lit=false": {
-      "model": "mushroom_mushroom:block/emitter_shroom",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 90,
       "y": 0
     },
     "facing=south,lit=false": {
-      "model": "mushroom_mushroom:block/emitter_shroom",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": -90,
       "y": 0
     },
     "facing=east,lit=false": {
-      "model": "mushroom_mushroom:block/emitter_shroom",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 90,
       "y": 90
     },
     "facing=west,lit=false": {
-      "model": "mushroom_mushroom:block/emitter_shroom",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 90,
       "y": -90
     },
     "facing=up,lit=true": {
-      "model": "mushroom_mushroom:block/emitter_shroom_lit"
+      "model": "mushroom_mushroom:block/receiver_shroom"
     },
     "facing=down,lit=true": {
-      "model": "mushroom_mushroom:block/emitter_shroom_lit",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 180
     },
     "facing=north,lit=true": {
-      "model": "mushroom_mushroom:block/emitter_shroom_lit",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 90,
       "y": 0
     },
     "facing=south,lit=true": {
-      "model": "mushroom_mushroom:block/emitter_shroom_lit",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": -90,
       "y": 0
     },
     "facing=east,lit=true": {
-      "model": "mushroom_mushroom:block/emitter_shroom_lit",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 90,
       "y": 90
     },
     "facing=west,lit=true": {
-      "model": "mushroom_mushroom:block/emitter_shroom_lit",
+      "model": "mushroom_mushroom:block/receiver_shroom",
       "x": 90,
       "y": -90
     }

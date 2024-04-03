@@ -7,10 +7,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 
 public class MushroomItems {
-	public static final Item MUSHROOM_TRIGGER = new MushroomTriggerItem();
+	public static final Item MUSHROOM_TINGLER = new MushroomTriggerItem();
 
 	public static void init() {
-		register(MUSHROOM_TRIGGER, "mushroom_trigger");
+		register(MUSHROOM_TINGLER, "mushroom_tingler");
 	}
 
 	private static void register(Item item, String name) {

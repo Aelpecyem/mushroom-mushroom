@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "mushroom_mushroom:block/receiver_shroom"
+  }
+}
