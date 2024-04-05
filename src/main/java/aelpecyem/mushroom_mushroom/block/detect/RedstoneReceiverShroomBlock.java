@@ -1,12 +1,12 @@
 package aelpecyem.mushroom_mushroom.block.detect;
 
-import aelpecyem.mushroom_mushroom.mushrooms.RedstoneDetector;
+import aelpecyem.mushroom_mushroom.registry.MushroomBlockEntities;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class RedstoneReceiverShroomBlock extends DetectorShroomBlock {
 
 	public RedstoneReceiverShroomBlock() {
-		super(new RedstoneDetector());
+		super(() -> MushroomBlockEntities.REDSTONE_DETECTOR);
 	}
 
 	@Override

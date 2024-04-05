@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:emitter_shroom"
+          "name": "mushroom_mushroom:emitter_shroom"
         }
       ],
       "rolls": 1.0

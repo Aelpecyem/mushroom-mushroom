@@ -1,7 +1,9 @@
 package aelpecyem.mushroom_mushroom.registry;
 
 import aelpecyem.mushroom_mushroom.MushroomMushroom;
-import aelpecyem.mushroom_mushroom.block.detect.DetectorShroomBlockEntity;
+import aelpecyem.mushroom_mushroom.block.detect.EntityDetectorShroomBlockEntity;
+import aelpecyem.mushroom_mushroom.block.detect.RedstoneDetectorShroomBlockEntity;
+import aelpecyem.mushroom_mushroom.block.effect.RedstoneEmitterShroomBlockEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -9,16 +11,23 @@ import org.quiltmc.qsl.block.entity.api.QuiltBlockEntityTypeBuilder;
 
 public class MushroomBlockEntities {
 	public static void init() {
-		register(ENTITY_DETECTOR_SHROOM, "entity_detector");
-	}	public static final BlockEntityType<DetectorShroomBlockEntity> ENTITY_DETECTOR_SHROOM =
-		QuiltBlockEntityTypeBuilder.create(DetectorShroomBlockEntity::new,
-				MushroomBlocks.RECEIVER_SHROOM,
-				MushroomBlocks.ENTITY_DETECTOR_SHROOM)
+		register(REDSTONE_DETECTOR, "redstone_detector");
+		register(REDSTONE_EMITTER, "redstone_emitter");
+		register(ENTITY_DETECTOR, "entity_detector");
+	}
+
+	public static final BlockEntityType<RedstoneDetectorShroomBlockEntity> REDSTONE_DETECTOR =
+		QuiltBlockEntityTypeBuilder.create(RedstoneDetectorShroomBlockEntity::new, MushroomBlocks.RECEIVER_SHROOM)
 			.build();
+	public static final BlockEntityType<EntityDetectorShroomBlockEntity> ENTITY_DETECTOR =
+		QuiltBlockEntityTypeBuilder.create(EntityDetectorShroomBlockEntity::new, MushroomBlocks.ENTITY_DETECTOR_SHROOM)
+			.build();
+	public static final BlockEntityType<RedstoneEmitterShroomBlockEntity> REDSTONE_EMITTER =
+		QuiltBlockEntityTypeBuilder.create(RedstoneEmitterShroomBlockEntity::new, MushroomBlocks.EMITTER_SHROOM)
+			.build();
+
 
 	private static void register(BlockEntityType<?> type, String name) {
 		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, MushroomMushroom.id(name), type);
 	}
-
-
 }

@@ -1,5 +1,6 @@
 package aelpecyem.mushroom_mushroom.block;
 
+import aelpecyem.mushroom_mushroom.network.INetworkUnit;
 import aelpecyem.mushroom_mushroom.registry.MushroomBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -24,7 +26,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class MushroomUnitBlock extends BaseEntityBlock implements MushroomUnit {
+import java.util.function.Supplier;
+
+public abstract class ShroomBlock extends BaseEntityBlock implements MushroomUnit {
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	protected static final VoxelShape[] SHAPE = {
@@ -36,9 +40,12 @@ public abstract class MushroomUnitBlock extends BaseEntityBlock implements Mushr
 		Block.box(0.0, 5.0, 5.0, 10.0, 11.0, 11.0) // WEST
 	};
 
-	public MushroomUnitBlock() {
+	protected final Supplier<BlockEntityType<? extends INetworkUnit>> type;
+
+	public ShroomBlock(Supplier<BlockEntityType<? extends INetworkUnit>> type) {
 		super(Properties.copy(Blocks.RED_MUSHROOM)
 			.lightLevel(Blocks.litBlockEmission(5)));
+		this.type = type;
 		registerDefaultState(defaultBlockState().setValue(ENABLED, true).setValue(FACING, Direction.UP));
 	}
 
@@ -47,7 +54,6 @@ public abstract class MushroomUnitBlock extends BaseEntityBlock implements Mushr
 		Vec3 vec3 = state.getOffset(world, pos);
 		return SHAPE[state.getValue(FACING).ordinal()].move(vec3.x, vec3.y, vec3.z);
 	}
-
 
 	@Nullable
 	@Override
@@ -101,6 +107,6 @@ public abstract class MushroomUnitBlock extends BaseEntityBlock implements Mushr
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return null;
+		return type.get().create(pos, state);
 	}
 }

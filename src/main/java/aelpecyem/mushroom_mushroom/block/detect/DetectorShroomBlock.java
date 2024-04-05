@@ -1,9 +1,7 @@
 package aelpecyem.mushroom_mushroom.block.detect;
 
-import aelpecyem.mushroom_mushroom.block.MushroomUnitBlock;
-import aelpecyem.mushroom_mushroom.mushrooms.Detector;
-import aelpecyem.mushroom_mushroom.registry.MushroomBlockEntities;
-import net.minecraft.core.BlockPos;
+import aelpecyem.mushroom_mushroom.block.ShroomBlock;
+import aelpecyem.mushroom_mushroom.network.INetworkUnit;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -15,13 +13,13 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class DetectorShroomBlock extends MushroomUnitBlock {
-	public static final BooleanProperty LIT = BlockStateProperties.LIT;
-	private final Detector detector;
+import java.util.function.Supplier;
 
-	public DetectorShroomBlock(Detector detector) {
-		super();
-		this.detector = detector;
+public class DetectorShroomBlock extends ShroomBlock {
+	public static final BooleanProperty LIT = BlockStateProperties.LIT;
+
+	public DetectorShroomBlock(Supplier<BlockEntityType<? extends INetworkUnit>> type) {
+		super(type);
 		registerDefaultState(defaultBlockState().setValue(LIT, false));
 	}
 
@@ -29,21 +27,14 @@ public class DetectorShroomBlock extends MushroomUnitBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state,
 																  BlockEntityType<T> type) {
-		return createTickerHelper(type, MushroomBlockEntities.ENTITY_DETECTOR_SHROOM, (l, p, s, e) -> e.tick(l, p, s));
-	}
-
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new DetectorShroomBlockEntity(pos, state);
+		return createTickerHelper(type,
+			(BlockEntityType<? extends DetectorShroomBlockEntity>) this.type.get(),
+			(l, p, s, e) -> e.tick(l, p, s));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(LIT);
-	}
-
-	public Detector getDetector() {
-		return detector;
 	}
 }

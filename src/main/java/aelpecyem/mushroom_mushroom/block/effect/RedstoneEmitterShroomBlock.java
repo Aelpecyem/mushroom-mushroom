@@ -1,32 +1,36 @@
 package aelpecyem.mushroom_mushroom.block.effect;
 
-import aelpecyem.mushroom_mushroom.mushrooms.ToggleRedstoneEffector;
+import aelpecyem.mushroom_mushroom.block.ShroomBlock;
+import aelpecyem.mushroom_mushroom.registry.MushroomBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.jetbrains.annotations.Nullable;
 
-public class RedstoneEmitterShroomBlock extends EffectorUnitBlock {
+public class RedstoneEmitterShroomBlock extends ShroomBlock {
 	public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
 	public RedstoneEmitterShroomBlock() {
-		super(new ToggleRedstoneEffector());
+		super(() -> MushroomBlockEntities.REDSTONE_EMITTER);
 		registerDefaultState(defaultBlockState().setValue(LIT, false));
 	}
 
+	@Nullable
 	@Override
-	public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
-		super.tick(state, world, pos, random);
-		if (state.getValue(LIT)) {
-			world.setBlock(pos, state.cycle(LIT), 2);
-			world.updateNeighborsAt(pos, this);
-		}
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state,
+																  BlockEntityType<T> type) {
+		return createTickerHelper(type,
+			(BlockEntityType<? extends RedstoneEmitterShroomBlockEntity>) this.type.get(),
+			(l, p, s, e) -> e.tick(l, p, s));
 	}
 
 	@Override

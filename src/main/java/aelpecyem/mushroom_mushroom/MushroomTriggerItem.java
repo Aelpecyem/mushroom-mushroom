@@ -1,7 +1,7 @@
 package aelpecyem.mushroom_mushroom;
 
-import aelpecyem.mushroom_mushroom.mushrooms.DetectionResult;
-import aelpecyem.mushroom_mushroom.mushrooms.Effector;
+import aelpecyem.mushroom_mushroom.network.DetectionResult;
+import aelpecyem.mushroom_mushroom.network.IEffector;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -15,15 +15,15 @@ public class MushroomTriggerItem extends Item {
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
 		BlockState stateClicked = context.getLevel().getBlockState(context.getClickedPos());
-		if (stateClicked.getBlock() instanceof Effector m) {
+		if (stateClicked.getBlock() instanceof IEffector m) {
 			DetectionResult triggerContext = new DetectionResult(
 				context.getLevel(),
 				context.getClickedPos(),
-				stateClicked,
-				context.getPlayer(),
-				context.getClickedPos()
+				stateClicked
 			);
-			m.trigger(context.getLevel(), context.getClickedPos(), stateClicked, triggerContext);
+			triggerContext.setTriggeredFrom(context.getClickedPos());
+			triggerContext.addTriggerEntity(context.getPlayer());
+			m.trigger(triggerContext);
 			return InteractionResult.sidedSuccess(true);
 		}
 		return super.useOn(context);

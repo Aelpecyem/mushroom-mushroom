@@ -4,7 +4,6 @@ import aelpecyem.mushroom_mushroom.MushroomMushroom;
 import aelpecyem.mushroom_mushroom.block.detect.DetectorShroomBlock;
 import aelpecyem.mushroom_mushroom.block.detect.RedstoneReceiverShroomBlock;
 import aelpecyem.mushroom_mushroom.block.effect.RedstoneEmitterShroomBlock;
-import aelpecyem.mushroom_mushroom.mushrooms.EntityDetector;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
@@ -22,7 +21,8 @@ public class MushroomBlocks {
 	);
 	public static final Block EMITTER_SHROOM = new RedstoneEmitterShroomBlock();
 	public static final Block RECEIVER_SHROOM = new RedstoneReceiverShroomBlock();
-	public static final Block ENTITY_DETECTOR_SHROOM = new DetectorShroomBlock(new EntityDetector());
+	public static final Block ENTITY_DETECTOR_SHROOM =
+		new DetectorShroomBlock(() -> MushroomBlockEntities.ENTITY_DETECTOR);
 
 	public static void init() {
 		register(EMITTER_SHROOM, "emitter_shroom");
