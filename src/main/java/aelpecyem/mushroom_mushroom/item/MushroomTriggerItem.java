@@ -1,4 +1,4 @@
-package aelpecyem.mushroom_mushroom;
+package aelpecyem.mushroom_mushroom.item;
 
 import aelpecyem.mushroom_mushroom.network.DetectionResult;
 import aelpecyem.mushroom_mushroom.network.IEffector;

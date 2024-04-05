@@ -1,8 +1,10 @@
 package aelpecyem.mushroom_mushroom.network;
 
+import org.jetbrains.annotations.Nullable;
+
 public interface IFilter extends INetworkUnit {
 
-	DetectionResult applyFilter(DetectionResult result);
+	@Nullable DetectionResult applyFilter(DetectionResult result);
 
 	@Override
 	default void connect(INetwork network) {

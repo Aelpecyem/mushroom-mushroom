@@ -77,9 +77,15 @@ public class Network implements INetwork {
 	public void stimulate(DetectionResult detection) {
 		for (IFilter filter : filters) {
 			detection = filter.applyFilter(detection);
+			if (detection == null) {
+				return;
+			}
 		}
-		for (IEffector effector : effectors) {
-			effector.trigger(detection);
+		// check if the detection is valid so filters can invalidate them beforehand
+		if (detection.isValid()) {
+			for (IEffector effector : effectors) {
+				effector.trigger(detection);
+			}
 		}
 	}
 }

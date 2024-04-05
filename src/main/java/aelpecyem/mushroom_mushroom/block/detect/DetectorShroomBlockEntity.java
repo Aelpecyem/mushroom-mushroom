@@ -38,13 +38,12 @@ public abstract class DetectorShroomBlockEntity extends BlockEntity implements I
 			detectCooldown--;
 			return;
 		}
-		state.setValue(DetectorShroomBlock.LIT, false);
 		Optional<DetectionResult> detection = detect();
 		detection.ifPresent(result -> {
 			Network network = new Network(level, pos);
-			state.setValue(DetectorShroomBlock.LIT, true);
 			network.stimulate(result);
 		});
+		level.setBlock(pos, state.setValue(DetectorShroomBlock.LIT, detection.isPresent()), 3);
 		detectCooldown = COOLDOWN;
 	}
 }

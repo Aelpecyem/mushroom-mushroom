@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public abstract class ShroomBlock extends BaseEntityBlock implements MushroomUnit {
+public class ShroomBlock extends BaseEntityBlock implements MushroomUnit {
 	public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	protected static final VoxelShape[] SHAPE = {
@@ -42,9 +42,8 @@ public abstract class ShroomBlock extends BaseEntityBlock implements MushroomUni
 
 	protected final Supplier<BlockEntityType<? extends INetworkUnit>> type;
 
-	public ShroomBlock(Supplier<BlockEntityType<? extends INetworkUnit>> type) {
-		super(Properties.copy(Blocks.RED_MUSHROOM)
-			.lightLevel(Blocks.litBlockEmission(5)));
+	public ShroomBlock(Properties properties, Supplier<BlockEntityType<? extends INetworkUnit>> type) {
+		super(properties);
 		this.type = type;
 		registerDefaultState(defaultBlockState().setValue(ENABLED, true).setValue(FACING, Direction.UP));
 	}

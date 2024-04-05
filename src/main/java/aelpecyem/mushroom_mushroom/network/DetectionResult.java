@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * Provides additional context to {@link MushroomUnit}s getting triggered.
@@ -18,15 +19,15 @@ public class DetectionResult {
 	private final Level level;
 	private final BlockPos sourcePos;
 	private final BlockState sourceState;
-	private final List<Entity> triggeredBy;
 	private @Nullable BlockPos triggeredFrom;
+	private final List<Entity> triggeredBy;
 
 	public DetectionResult(Level level, BlockPos sourcePos, BlockState sourceState) {
 		this.level = level;
 		this.sourcePos = sourcePos;
 		this.sourceState = sourceState;
-		this.triggeredBy = new ArrayList<>();
 		this.triggeredFrom = null;
+		this.triggeredBy = new ArrayList<>();
 	}
 
 	public void setTriggeredFrom(@Nullable BlockPos triggeredFrom) {
@@ -45,8 +46,10 @@ public class DetectionResult {
 		return sourceState;
 	}
 
-	public Optional<BlockPos> getTriggeredFrom() {
-		return Optional.ofNullable(triggeredFrom);
+
+	public DetectionResult removeIf(Predicate<Entity> predicate) {
+		this.triggeredBy.removeIf(predicate);
+		return this;
 	}
 
 	public void addTriggerEntity(Entity entity) {
@@ -55,5 +58,14 @@ public class DetectionResult {
 
 	public List<Entity> getTriggerEntities() {
 		return triggeredBy;
+	}
+
+	public Optional<BlockPos> getTriggeredFrom() {
+		return Optional.ofNullable(triggeredFrom);
+	}
+
+
+	public boolean isValid() {
+		return level != null && getSourceState() != null && getSourcePos() != null;
 	}
 }
